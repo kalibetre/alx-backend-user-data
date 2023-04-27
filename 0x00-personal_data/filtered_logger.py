@@ -17,10 +17,10 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     """
     A function that returns a log message obfuscated
     """
-    return separator.join([
-        re.sub(r'=([^=]*)', f'={redaction}', v)
-        if v.split('=')[0] in fields else v for v in message.split(separator)
-    ])
+    for f in fields:
+        message = re.sub(fr'{f}=.+?{separator}', f'{f}={redaction}{separator}',
+                         message)
+    return message
 
 
 class RedactingFormatter(logging.Formatter):
