@@ -10,4 +10,14 @@ from flask import request
 
 class BasicAuth(Auth):
     """A basic auth class to manage the API authentication"""
-    pass
+
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
+        """
+        Returns the base64 part of the Authorization header 
+        """
+        if authorization_header is None or type(
+                authorization_header
+        ) is not str or authorization_header[:6] != 'Basic ':
+            return None
+        return authorization_header[6:]
