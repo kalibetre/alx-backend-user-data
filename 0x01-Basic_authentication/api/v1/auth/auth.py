@@ -15,7 +15,13 @@ class Auth:
         Require authentication for all the paths except the ones in
         exclude_paths
         """
-        return False
+        if path is None or exclude_paths is None or exclude_paths == []:
+            return True
+        path = path + '/' if path[-1] != '/' else path
+        if path in exclude_paths:
+            return False
+        else:
+            return True
 
     def authorization_header(self, request=None) -> str:
         """
