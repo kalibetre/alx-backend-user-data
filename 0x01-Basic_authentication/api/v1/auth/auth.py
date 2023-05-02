@@ -2,6 +2,7 @@
 """
 Auth module for the API
 """
+import re
 from typing import List, TypeVar
 
 from flask import request
@@ -22,10 +23,13 @@ class Auth:
         if path is None or exclude_paths is None or exclude_paths == []:
             return True
         path = path + '/' if path[-1] != '/' else path
-        if path in exclude_paths:
-            return False
-        else:
-            return True
+        for exclude_path in exclude_paths:
+            exclude_path = exclude_path.replace('/', '\\/').replace('*', '.*')
+            regex = re.compile(exclude_path)
+            if regex.search(path):
+                return False
+
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
