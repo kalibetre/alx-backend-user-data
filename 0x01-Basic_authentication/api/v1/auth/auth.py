@@ -14,6 +14,10 @@ class Auth:
         """
         Require authentication for all the paths except the ones in
         exclude_paths
+
+        Return:
+            - True if the path is not in the list of strings exclude_paths
+            else False
         """
         if path is None or exclude_paths is None or exclude_paths == []:
             return True
@@ -25,12 +29,17 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """
-        Return the value of the header request Authorization
+        Return:
+            - the value of the header request Authorization or None
+            if request doesn't contain Authorization header
         """
-        return None
+        if request is None:
+            return None
+        return request.headers.get('Authorization', None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
-        Return the current user
+        Return:
+            - the current user
         """
         return None
