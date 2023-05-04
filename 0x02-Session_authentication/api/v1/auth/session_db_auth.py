@@ -50,5 +50,6 @@ class SessionDBAuth(SessionExpAuth):
         user_session = UserSession.search({'session_id': session_cookie})
         if len(user_session) == 0:
             return False
+        del self.user_id_by_session_id[session_cookie]
         user_session[0].remove()
         return True
