@@ -25,6 +25,7 @@ class SessionDBAuth(SessionExpAuth):
         """Return the User ID by requesting UserSession in the database"""
         if session_id is None:
             return None
+        UserSession.load_from_file()
         user_session = UserSession.search({'session_id': session_id})
         if len(user_session) == 0:
             return None
