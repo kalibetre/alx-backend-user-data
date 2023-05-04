@@ -4,10 +4,8 @@ BasicAuth module for the API
 """
 from datetime import datetime, timedelta
 from os import getenv
-from uuid import uuid4
 
 from api.v1.auth.session_auth import SessionAuth
-from models.user import User
 
 
 class SessionExpAuth(SessionAuth):
@@ -15,8 +13,9 @@ class SessionExpAuth(SessionAuth):
 
     def __init__(self):
         """Initialize the session auth from SESSION_DURATION env variable"""
-        duration = getenv('SESSION_DURATION', 0)
-        self.session_duration = int(duration) if duration.isnumeric() else 0
+        duration = getenv('SESSION_DURATION')
+        self.session_duration = int(
+            duration) if duration and duration.isnumeric() else 0
 
     def create_session(self, user_id: str = None) -> str:
         """Creates a Session ID for a user_id"""
