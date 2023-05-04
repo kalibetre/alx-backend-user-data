@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BasicAuth module for the API
+SessionAuth module for the API
 """
 from uuid import uuid4
 

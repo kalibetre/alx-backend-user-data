@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BasicAuth module for the API
+SessionExpAuth module for the API
 """
 from datetime import datetime, timedelta
 from os import getenv
